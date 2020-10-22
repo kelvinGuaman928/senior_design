@@ -2,6 +2,7 @@
 icm 20948 from adafruit
 
 */
+
 #include <Adafruit_ICM20948.h>
 #include <Adafruit_ICM20X.h>
 #include <Adafruit_Sensor.h>
@@ -48,7 +49,7 @@ void setup(void) {
 
   icm.setMagDataRate(AK09916_MAG_DATARATE_10_HZ); 
   icm_mag = icm.getMagnetometerSensor();
-  icm_mag->printSensorDetails();
+ 
 
   Serial.println();
   
@@ -68,7 +69,7 @@ void loop() {
 
   /* Display the results (acceleration is measured in m/s^2)
     acce.x = data[0] / range_sensti
-    */
+    
    
   Serial.print("\t\tAccel X: ");
   Serial.print(accel.acceleration.x);
@@ -78,26 +79,31 @@ void loop() {
   Serial.print(accel.acceleration.z);
   Serial.println();
  
-  /* Display the results (rotation is measured in rad/s)*/
-  
+  /* Display the results (rotation is measured in rad/s)
+  */
   
   gyro_x_rotation= gyro.gyro.x*RAD2DEG; // pitch angle around x 
   gyro_y_rotation = gyro.gyro.y*RAD2DEG; // roll angle around y
   gyro_z_rotation = gyro.gyro.z*RAD2DEG;
-  
+
+ 
+  Serial.print("\t\tgyro X: ");
   Serial.print(gyro_x_rotation);
   Serial.print(" \tY: ");
   Serial.print(gyro_y_rotation);
+  Serial.println(' ');
+
+  /*
   Serial.print(" \tZ: ");
   Serial.print(gyro_z_rotation);
   Serial.println(" dergees ");
   Serial.println();
   
-  /*
-   * for calulating roll and pitch
+  
+    for calulating roll and pitch
    * 
-   * 
-   */
+   */ 
+   
     axg = accel.acceleration.x / G; // acc in Gs 
     ayg = accel.acceleration.y / G;
     azg = accel.acceleration.z /G;
@@ -105,12 +111,14 @@ void loop() {
     roll  = (atan2(-axg,azg))* RAD2DEG;
     pitch = (atan2(ayg, sqrt(square(axg)+ square(azg))))*RAD2DEG;
     
-    Serial.print("\tacceleration roll & pitch");
-    Serial.print("\troll:");
-    Serial.print(roll);
-    Serial.print("\tpitch:");
-    Serial.print(pitch);
-  
+    Serial.print("\tx:");
+    Serial.print(axg);
+    Serial.print("\ty");
+    Serial.print(ayg);
+    Serial.print("\tz");
+    Serial.print(azg);
+    Serial.println();
+    
   
   /*
    *   Serial.print("\t\tMag X: ");
